@@ -6,6 +6,7 @@ register Sinatra::CrossOrigin
 set :port, 9000
 
 GMAPS_URL = 'https://maps.googleapis.com/maps/api/geocode/json'
+DARKSKY_URL = 'https://api.darksky.net/forecast'
 
 post '/chat/messages' do
   cross_origin
@@ -55,5 +56,11 @@ def weather(address)
   lat = location['lat']
   lng = location['lng']
 
-  'In progress!'
+  darksky = URI.parse("#{DARKSKY_URL}/#{ENV['DARKSKY_KEY']}/#{lat},#{lng}")
+  darksky_response = JSON.parse(Net::HTTP.get(darksky))
+  current_weather = darksky_response['currently']
+  temperature = current_weather['temperature']
+  summary = current_weather['summary']
+
+  "Currently it is #{temperature}F. #{summary}"
 end
