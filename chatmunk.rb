@@ -52,7 +52,7 @@ def parse_question
 end
 
 def weather(address)
-  gmaps = URI.parse("#{g_url}?address=#{address}&key=#{ENV['GMAPS_KEY']}")
+  gmaps = URI.parse("#{GMAPS_URL}?address=#{address}&key=#{ENV['GMAPS_KEY']}")
   gmaps_response = JSON.parse(Net::HTTP.get(gmaps))
   location = gmaps_response['results'][0]['geometry']['location']
   lat = location['lat']
