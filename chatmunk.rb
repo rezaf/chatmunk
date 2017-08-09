@@ -1,9 +1,11 @@
 require 'sinatra'
 require 'sinatra/cross_origin'
 require 'net/http'
+require 'dotenv'
 
 register Sinatra::CrossOrigin
 set :port, 9000
+Dotenv.load
 
 GMAPS_URL = 'https://maps.googleapis.com/maps/api/geocode/json'
 DARKSKY_URL = 'https://api.darksky.net/forecast'
