@@ -3,6 +3,7 @@ require 'sinatra/cross_origin'
 require 'net/http'
 
 register Sinatra::CrossOrigin
+set :port, 9000
 
 post '/chat/messages' do
   cross_origin
