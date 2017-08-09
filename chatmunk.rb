@@ -5,6 +5,8 @@ require 'net/http'
 register Sinatra::CrossOrigin
 set :port, 9000
 
+GMAPS_URL = 'https://maps.googleapis.com/maps/api/geocode/json'
+
 post '/chat/messages' do
   cross_origin
 
@@ -28,7 +30,7 @@ end
 def parse_question
   question = params[:text]
 
-  location =
+  address =
     if question[0..20]&.downcase == "what's the weather in"
       question[21..-1]
     elsif question[0..9]&.downcase == 'weather in'
@@ -39,13 +41,19 @@ def parse_question
       ''
     end.strip
 
-  if location.empty?
+  if address.empty?
     'Hmm, I am not sure if I understand this question.'
   else
-    weather(location)
+    weather(address)
   end
 end
 
-def weather(location)
+def weather(address)
+  gmaps = URI.parse("#{g_url}?address=#{address}&key=#{ENV['GMAPS_KEY']}")
+  gmaps_response = JSON.parse(Net::HTTP.get(gmaps))
+  location = gmaps_response['results'][0]['geometry']['location']
+  lat = location['lat']
+  lng = location['lng']
+
   'In progress!'
 end
