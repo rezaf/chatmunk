@@ -2,7 +2,7 @@ Chatmunk
 ========
 A chatbot engine for weather
 ----------------------------
-### Using Ruby, Sinatra, Google Maps Geocoding and Dark Sky API's
+Using Ruby, Sinatra, Google Maps Geocoding and Dark Sky API's
 
 Installation Guide
 ------------------
@@ -37,7 +37,7 @@ gem install thin
 ```
 
 **Create a .env file**
-We need to create a `.env ` to store API keys.
+We need to create a `.env` file to store API keys.
 Since this file is not committed to the project repo. This allows us to keep the keys private.
 ```
 GMAPS_KEY=<insert Google Maps API key here>
@@ -49,3 +49,13 @@ DARKSKY_KEY=<insert Dark Sky API key here>
 Inside the project directory, you can type: `ruby chatmunk.rb`
 
 ##### This should take care of it. Congratulations!
+---
+**Optional: Run the specs**
+
+If you would like to run the specs, you need to install the following gems:
+```
+gem install rack-test
+gem install rspec
+gem install webmock
+```
+After that you can just type `rspec` in the project root directory.
